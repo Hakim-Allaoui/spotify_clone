@@ -5,6 +5,7 @@ import 'package:spotify_clone/pages/home_page.dart';
 import 'package:spotify_clone/pages/player_page.dart';
 import 'package:spotify_clone/pages/privacy_policy_page.dart';
 import 'package:spotify_clone/pages/splash_screen.dart';
+import 'package:spotify_clone/utils/ads_helper.dart';
 
 var routes = <String, WidgetBuilder>{
   "/home" : (BuildContext context) => HomePage(),
@@ -15,6 +16,8 @@ var routes = <String, WidgetBuilder>{
 };
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  AdsHelper.initAdmobAds();
   runApp(MyApp());
 }
 
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Spotify Clone',
+      title: 'Spotifake',
       theme: ThemeData(
         fontFamily: 'Proxima Nova',
         brightness: Brightness.dark,

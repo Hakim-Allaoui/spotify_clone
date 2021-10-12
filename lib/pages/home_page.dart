@@ -1,4 +1,6 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:spotify_clone/utils/ads_helper.dart';
 import 'package:spotify_clone/utils/navigator.dart';
 import 'package:spotify_clone/utils/theme.dart';
 import 'package:spotify_clone/utils/tools.dart';
@@ -9,6 +11,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  AdsHelper ads;
+
+  @override
+  void initState() {
+    ads = new AdsHelper();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,88 +60,97 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Image.asset(
-                  'assets/images/spotify_logo_banner_black.png',
-                  height: MediaQuery.of(context).size.height * 0.12,
-                ),
-                Text(
-                  "Millions of songs. \n Free on Spotify.",
-                  style: TextStyle(
-                    fontFamily: 'Proxima Nova',
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                Container(
+              children: [
+                SafeArea(child: ads.getAdmobBanner(AdmobBannerSize.BANNER)),
+                Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
+                      Image.asset(
+                        'assets/images/spotify_logo_banner_black.png',
+                        height: MediaQuery.of(context).size.height * 0.12,
+                      ),
                       Text(
-                        "Continue with",
+                        "Millions of songs. \n Free on Spotify.",
                         style: TextStyle(
+                          fontFamily: 'Proxima Nova',
+                          fontSize: 30.0,
                           fontWeight: FontWeight.w900,
-                          fontSize: 18.0,
                         ),
                       ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      MaterialButton(
-                          onPressed: () {},
-                          child: Container(
-                            padding: EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                              color: HKColors.green,
-                              borderRadius: BorderRadius.circular(100.0),
+                      Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              "Continue with",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 18.0,
+                              ),
                             ),
-                            margin: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "EMAIL",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16.0,
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            MaterialButton(
+                                onPressed: () {
+                                  ads.showAdmobInter();
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(10.0),
+                                  decoration: BoxDecoration(
+                                    color: HKColors.green,
+                                    borderRadius: BorderRadius.circular(100.0),
                                   ),
-                                ),
-                              ],
-                            ),
-                          )),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      MaterialButton(
-                          onPressed: () {
-                            HKNavigator.goPlayer(context);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100.0),
-                            ),
-                            margin: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "LOG IN",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16.0,
+                                  margin: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "EMAIL",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
+                                )),
+                            SizedBox(
+                              height: 10.0,
                             ),
-                          ))
+                            MaterialButton(
+                                onPressed: () {
+                                  HKNavigator.goPlayer(context);
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(10.0),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100.0),
+                                  ),
+                                  margin: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "LOG IN",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ))
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
